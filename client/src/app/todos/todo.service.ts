@@ -45,7 +45,7 @@ export class TodoService {
   //   return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
   // }
 
-  filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string }): Todo[] {
+  filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string}): Todo[] {
     let filteredTodos = todos;
 
     if (filters.owner) {
