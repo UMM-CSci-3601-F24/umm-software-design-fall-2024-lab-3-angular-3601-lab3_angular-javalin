@@ -21,7 +21,7 @@
   a.
     The page object is a new UserListPage defined at line 3
   b.
-    We use .type('27') in line 63 by using cy.get('data-test=userAgeInpu'), thus typine 27 into 
+    We use .type('27') in line 63 by using cy.get('data-test=userAgeInput'), thus typing 27 into 
     a field with that data-test value
   c.
     It returns all elements that are app-user-cards that are contained in user-card-containers 
