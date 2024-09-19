@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Todo, TodoRole } from './todo';
-import { TodoService } from './todo.service';
 import { Subject, takeUntil } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import {
@@ -12,15 +11,15 @@ import {
   MatListItemTitle,
   MatListItemLine,
 } from '@angular/material/list';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
+import { TodoService } from './todo.service';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
-
 /**
  * A component that displays a list of users, either as a grid
  * of cards or as a vertical list.
@@ -41,6 +40,7 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
     MatCard,
     MatCardTitle,
     MatCardContent,
+    MatExpansionModule,
     MatFormField,
     MatLabel,
     MatInput,
@@ -59,9 +59,11 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
     MatListItemLine,
     MatError,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent implements OnInit, OnDestroy {
   // These are public so that tests can reference them (.spec.ts)
+  readonly panelOpenState = signal(false);
   public serverFilteredTodos: Todo[];
   public filteredTodos: Todo[];
 
@@ -70,10 +72,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
   public todoRole: TodoRole;
   public todoCategory: string;
   public todoBody: string;
-  public viewType: 'card' | 'list' = 'card';
+
 
   errMsg = '';
   private ngUnsubscribe = new Subject<void>();
+
 
   /**
    * This constructor injects both an instance of `UserService`
@@ -98,7 +101,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
     // (which is an Observable<User[]>).
     // (For more on Observable, see: https://reactivex.io/documentation/observable.html)
     this.todoService
-      .getTodos({
+    .getTodos({
         // Filter the users by the role and owner specified in the GUI
         role: this.todoRole,
         owner: this.todoOwner,

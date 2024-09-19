@@ -1,14 +1,15 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Todo, TodoRole } from './todo';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TodoService {
-  readonly todoUrl: string = environment.apiUrl + 'todos';
-
-  constructor(private httpClient: HttpClient) {}
+readonly todoUrl: string = environment.apiUrl + 'todos';
+  constructor(private httpClient: HttpClient) { }
 
   getTodos(filters?: {
     role?: TodoRole;
@@ -41,9 +42,9 @@ export class TodoService {
     });
   }
 
-  // getTodoById(id: string): Observable<Todo> {
-  //   return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
-  // }
+  getTodoById(id: string): Observable<Todo> {
+    return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
+  }
 
   filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string}): Todo[] {
     let filteredTodos = todos;
