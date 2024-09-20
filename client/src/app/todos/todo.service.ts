@@ -34,20 +34,25 @@ export class TodoService {
   filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string}): Todo[] {
     let filteredTodos = todos;
 
-    if (filters.owner) {
+    if (filters.owner !== undefined) {
       filters.owner = filters.owner.toLowerCase();
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
     }
 
-    if (filters.category) {
+    if (filters.category !== undefined) {
       filters.category = filters.category.toLowerCase();
       filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
     }
 
-    if (filters.status) {
-      filteredTodos = filteredTodos.filter(todo => todo.status.toString().toLowerCase().indexOf(filters.status.toString()) !== -1);
+    if (filters.status !== undefined) {
+
+      filteredTodos = filteredTodos.filter(todo => todo.status === filters.status);
     }
 
+    if (filters.body !== undefined) {
+      filters.body = filters.body.toLowerCase();
+      filteredTodos = filteredTodos.filter(todo => todo.body.toLowerCase().indexOf(filters.body) !== -1);
+    }
     return filteredTodos;
   }
 }

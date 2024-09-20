@@ -63,7 +63,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
   public todoBody: string;
   public todoCategory: string;
   public viewType: 'card' | 'list' = 'card';
-  public todoAvatar: string;
 
   errMsg = '';
 
@@ -107,6 +106,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.filteredTodos = this.todoService.filterTodos(this.serverFilteredTodos, {
       owner: this.todoOwner,
       category: this.todoCategory,
+      body: this.todoBody,
     })
   }
 
