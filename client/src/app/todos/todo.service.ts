@@ -62,17 +62,10 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
     //   filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
     // }
 
-    console.log(filteredTodos[0]);
-    console.log(filters.status);
-    console.log(typeof(filters.status));
-    console.log(filteredTodos[0].status === false);
-
     if (filters.status !== undefined) {
 
       filteredTodos = filteredTodos.filter(todo => todo.status === filters.status);
     }
-
-    console.log("There are " + filteredTodos.length + " todos after status filtering.");
 
     if (filters.body !== undefined) {
       filters.body = filters.body.toLowerCase();
