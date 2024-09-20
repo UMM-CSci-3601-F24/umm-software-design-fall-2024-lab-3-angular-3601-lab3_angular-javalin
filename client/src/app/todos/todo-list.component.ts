@@ -109,6 +109,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
         // Filter the users by the role and owner specified in the GUI
         role: this.todoRole,
         owner: this.todoOwner,
+        category: this.todoCategory,
       })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
@@ -142,6 +143,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
       owner: this.todoOwner,
       body: this.todoBody,
       status: this.todoStatus,
+      category: this.todoCategory,
     });
   }
 

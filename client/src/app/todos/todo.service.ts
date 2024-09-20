@@ -55,12 +55,10 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
     }
 
-    console.log("There are " + filteredTodos.length + " todos after owner filtering.");
-
-    // if (filters.category) {
-    //   filters.category = filters.category.toLowerCase();
-    //   filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
-    // }
+    if (filters.category !== undefined) {
+      filters.category = filters.category.toLowerCase();
+      filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
+    }
 
     if (filters.status !== undefined) {
 
