@@ -54,10 +54,10 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
     }
 
-    // if (filters.category) {
-    //   filters.category = filters.category.toLowerCase();
-    //   filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
-    // }
+    if (filters.category) {
+      filters.category = filters.category.toLowerCase();
+      filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
+    }
 
     // if (filters.status) {
     //   filters.status = filters.status.toLowerCase();
