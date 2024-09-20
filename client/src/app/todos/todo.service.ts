@@ -50,7 +50,7 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
     console.log("In filterTodos with filters.status = " + filters.status);
     let filteredTodos = todos;
 
-    if (filters.owner) {
+    if (filters.owner !== undefined) {
       filters.owner = filters.owner.toLowerCase();
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
     }
@@ -67,13 +67,14 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
     console.log(typeof(filters.status));
     console.log(filteredTodos[0].status === false);
 
-    if (filters.status) {
+    if (filters.status !== undefined) {
+
       filteredTodos = filteredTodos.filter(todo => todo.status === filters.status);
     }
 
     console.log("There are " + filteredTodos.length + " todos after status filtering.");
 
-    if (filters.body) {
+    if (filters.body !== undefined) {
       filters.body = filters.body.toLowerCase();
       filteredTodos = filteredTodos.filter(todo => todo.body.toLowerCase().indexOf(filters.body) !== -1);
     }
