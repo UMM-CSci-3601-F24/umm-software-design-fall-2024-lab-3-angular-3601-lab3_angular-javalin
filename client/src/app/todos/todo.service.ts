@@ -23,9 +23,9 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
       if (filters.role) {
         httpParams = httpParams.set('role', filters.role);
       }
-      if (filters.status) {
-        httpParams = httpParams.set('status', filters.status); //unknown to string, is a boolean
-      }
+      // if (filters.status) {
+      //   httpParams = httpParams.set('status', filters.status); //unknown to string, is a boolean
+      // }
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);
       }
@@ -47,6 +47,7 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
   }
 
   filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string}): Todo[] {
+    console.log("In filterTodos with filters.status = " + filters.status);
     let filteredTodos = todos;
 
     if (filters.owner) {
@@ -54,14 +55,23 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
     }
 
+    console.log("There are " + filteredTodos.length + " todos after owner filtering.");
+
     // if (filters.category) {
     //   filters.category = filters.category.toLowerCase();
     //   filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
     // }
 
+    console.log(filteredTodos[0]);
+    console.log(filters.status);
+    console.log(typeof(filters.status));
+    console.log(filteredTodos[0].status === false);
+
     if (filters.status) {
       filteredTodos = filteredTodos.filter(todo => todo.status === filters.status);
     }
+
+    console.log("There are " + filteredTodos.length + " todos after status filtering.");
 
     if (filters.body) {
       filters.body = filters.body.toLowerCase();
