@@ -79,26 +79,19 @@
 
   <div class="todo-panels-container flex-row gap-10 flex-wrap">
     @for (todo of filteredTodos; track todo._id) {
-      <mat-expansion-panel hideToggle>
 
-        <mat-expansion-panel-header>
-          <mat-panel-title> {{ todo.body }} </mat-panel-title>
-          <mat-panel-description> This is a summary of the content </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>This is the primary content of the panel.</p>
-      </mat-expansion-panel>
+
 
       <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
         <mat-expansion-panel-header>
-          <mat-panel-title> Self aware panel </mat-panel-title>
+          <mat-panel-title> Todo </mat-panel-title>
           <mat-panel-description>
-            Currently I am {{panelOpenState() ? 'open' : 'closed'}}
+            {{ todo.category }}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-        <p> {{todo.status}} </p>
-        <p> {{todo.owner}} </p>
-        <p> {{todo.category}} </p>
+        <p> Body: {{ todo.body }} </p>
+        <p> Status: {{todo.status}} </p>
+        <p> Owner: {{todo.owner}} </p>
       </mat-expansion-panel>
     }
   </div>
