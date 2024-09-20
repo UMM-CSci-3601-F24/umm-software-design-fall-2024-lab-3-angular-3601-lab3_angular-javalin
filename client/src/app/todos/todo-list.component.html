@@ -61,10 +61,11 @@
           </mat-form-field>
         </div>
         <div class="flex-row gap-10 flex-wrap">
-          <label for="status">Status: </label>
-          <mat-radio-group aria-label="status" [(ngModel)]="todoStatus" data-test="statusRadio">
-            <mat-radio-button value="complete">Complete</mat-radio-button>
-            <mat-radio-button value="incomplete">Incomplete</mat-radio-button>
+          <mat-label for="status">Status: </mat-label>
+          <mat-radio-group aria-label="status" (change)="getTodosFromServer()" [(ngModel)]="todoStatus" data-test="statusRadio">
+            <mat-radio-button [value]=undefined>Neither</mat-radio-button>
+            <mat-radio-button [value]="true">Complete</mat-radio-button>
+            <mat-radio-button [value]=!true>Incomplete</mat-radio-button>
           </mat-radio-group>
         </div>
         <br />
@@ -95,6 +96,9 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p>I'm visible because I am open</p>
+        <p> {{todo.status}} </p>
+        <p> {{todo.owner}} </p>
+        <p> {{todo.category}} </p>
       </mat-expansion-panel>
     }
   </div>
