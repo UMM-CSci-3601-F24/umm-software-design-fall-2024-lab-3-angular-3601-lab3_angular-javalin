@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable} from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Todo, TodoRole } from './todo';
 
@@ -59,10 +59,9 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
     //   filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
     // }
 
-    // if (filters.status) {
-    //   filters.status = filters.status.toLowerCase();
-    //   filteredTodos = filteredTodos.filter(todo => todo.status.toLowerCase().indexOf(filters.status) !== -1);
-    // }
+    if (filters.status) {
+      filteredTodos = filteredTodos.filter(todo => todo.status === filters.status);
+    }
 
     if (filters.body) {
       filters.body = filters.body.toLowerCase();

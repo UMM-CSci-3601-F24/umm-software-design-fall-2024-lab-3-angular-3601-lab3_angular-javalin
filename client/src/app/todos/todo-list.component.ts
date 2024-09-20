@@ -20,6 +20,7 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
 import { TodoService } from './todo.service';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
 /**
  * A component that displays a list of users, either as a grid
  * of cards or as a vertical list.
@@ -50,6 +51,7 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
     MatOption,
     MatRadioGroup,
     MatRadioButton,
+    MatRadioModule,
     MatNavList,
     MatListSubheaderCssMatStyler,
     MatListItem,
@@ -61,6 +63,8 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+
 export class TodoListComponent implements OnInit, OnDestroy {
   // These are public so that tests can reference them (.spec.ts)
   readonly panelOpenState = signal(false);
@@ -132,9 +136,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
    * get an updated list of `filteredUsers`.
    */
   public updateFilter() {
+    console.log('Updating the filter; this.todoStatus = ' + this.todoStatus);
     this.filteredTodos = this.todoService.filterTodos(this.serverFilteredTodos, {
       owner: this.todoOwner,
       body: this.todoBody,
+      status: this.todoStatus,
     });
   }
 
