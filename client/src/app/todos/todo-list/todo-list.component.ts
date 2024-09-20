@@ -63,6 +63,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   public todoBody: string;
   public todoCategory: string;
   public viewType: 'card' | 'list' = 'card';
+  public todoAvatar: string;
 
   errMsg = '';
 
