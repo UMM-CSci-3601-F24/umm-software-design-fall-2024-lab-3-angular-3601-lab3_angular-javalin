@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Todo, TodoRole } from './todo';
+import { Todo } from './todo';
 import { Subject, takeUntil } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import {
@@ -73,7 +73,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   public todoOwner: string;
   public todoStatus: boolean;
-  public todoRole: TodoRole;
   public todoCategory: string;
   public todoBody: string;
 
@@ -107,7 +106,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.todoService
     .getTodos({
         // Filter the users by the role and owner specified in the GUI
-        role: this.todoRole,
         owner: this.todoOwner,
         category: this.todoCategory,
       })

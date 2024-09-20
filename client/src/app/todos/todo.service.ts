@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Todo, TodoRole } from './todo';
+import { Todo } from './todo';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
   constructor(private httpClient: HttpClient) { }
 
   getTodos(filters?: {
-    role?: TodoRole;
     status?: boolean;
     owner?: string;
     body?: string;
@@ -20,9 +20,7 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
   }): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
-      if (filters.role) {
-        httpParams = httpParams.set('role', filters.role);
-      }
+
       // if (filters.status) {
       //   httpParams = httpParams.set('status', filters.status); //unknown to string, is a boolean
       // }
@@ -47,13 +45,14 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
   }
 
   filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string}): Todo[] {
-    console.log("In filterTodos with filters.status = " + filters.status);
+
     let filteredTodos = todos;
 
     if (filters.owner !== undefined) {
       filters.owner = filters.owner.toLowerCase();
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
     }
+
 
     if (filters.category !== undefined) {
       filters.category = filters.category.toLowerCase();
