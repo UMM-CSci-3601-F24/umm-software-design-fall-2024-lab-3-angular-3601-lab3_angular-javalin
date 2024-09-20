@@ -10,7 +10,8 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
-import { Todo } from './todo';
+import { Todo } from '../todo';
+
 @Component({
   selector: 'app-todo-card',
   templateUrl: './todo-card.component.html',
@@ -30,5 +31,7 @@ import { Todo } from './todo';
 })
 export class TodoCardComponent {
   todo = input.required<Todo>();
+
   simple = input(false);
 }
+
