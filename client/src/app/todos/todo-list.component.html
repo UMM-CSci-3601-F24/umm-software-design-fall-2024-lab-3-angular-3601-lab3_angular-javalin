@@ -84,13 +84,13 @@
 
       <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
         <mat-expansion-panel-header>
-          <mat-panel-title> Todo </mat-panel-title>
+          <mat-panel-title> Todo {{todo.status ? 'open' : 'close'}}
+          </mat-panel-title>
           <mat-panel-description>
             {{ todo.category }}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p> Body: {{ todo.body }} </p>
-        <p> Status: {{todo.status}} </p>
         <p> Owner: {{todo.owner}} </p>
       </mat-expansion-panel>
     }
