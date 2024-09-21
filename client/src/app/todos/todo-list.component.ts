@@ -75,10 +75,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
   public todoStatus: boolean;
   public todoCategory: string;
   public todoBody: string;
-
+  public todoLimit: number = 0;
 
   errMsg = '';
   private ngUnsubscribe = new Subject<void>();
+
 
 
   /**
@@ -143,7 +144,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
       status: this.todoStatus,
       category: this.todoCategory,
     });
+    if (this.todoLimit > 0) {
+      this.filteredTodos = this.todoService.limitTodos(this.filteredTodos, this.todoLimit);
   }
+
+}
 
   /**
    * Starts an asynchronous operation to update the users list

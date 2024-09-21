@@ -158,6 +158,19 @@ it('filters by body', () => {
     expect(todo.body.indexOf(todoBody)).toBeGreaterThanOrEqual(0);
 });
 });
+it('should limit the number of todos based on the todoLimit input', () => {
+  const todoLimit = 2; // Set limit to 2
+  const filteredTodos = todoService.limitTodos(testTodos, todoLimit); // Apply limit
+
+  // Ensure that the length of the filtered todos does not exceed the limit
+  expect(filteredTodos.length).toBeLessThanOrEqual(todoLimit);
+});
+
+it('should throw an error if a negative limit number is provided', () => {
+  expect(() => todoService.limitTodos(testTodos, -1)).toThrowError("Limit must be a non-negative number.");
+});
+
+
 // it('filters by status', () => {
 //   const todoStatus = 'false';
 //   const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
