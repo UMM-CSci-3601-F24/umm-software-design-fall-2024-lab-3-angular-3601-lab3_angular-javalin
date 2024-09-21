@@ -82,6 +82,23 @@ describe('getTodos()', () => {
       req.flush(testTodos);
     });
 
+    it("correctly calls api/todos with filter parameter 'quis'", () => {
+      todoService.getTodos({ body: 'quis' }).subscribe(todos => expect(todos).toBe(testTodos));
+
+
+      const req = httpTestingController.expectOne(
+        request => request.url.startsWith(todoService.todoUrl) && request.params.has('body')
+      );
+
+
+      expect(req.request.method).toEqual('GET');
+
+
+      expect(req.request.params.get('body')).toEqual('quis');
+
+      req.flush(testTodos);
+    });
+
     it("correctly calls api/todos with filter parameter 'owner'", () => {
       todoService.getTodos({ owner: 'Blanche' }).subscribe(todos => expect(todos).toBe(testTodos));
 
@@ -98,7 +115,59 @@ describe('getTodos()', () => {
 
       req.flush(testTodos);
     });
-
-     });
+ });
     });
+    describe('filterTodos()', () => {
+      /*
+       * Since `filterUsers` actually filters "locally" (in
+       * Angular instead of on the server), we do want to
+       * confirm that everything it returns has the desired
+       * properties. Since this doesn't make a call to the server,
+       * though, we don't have to use the mock HttpClient and
+       * all those complications.
+       */
+      it('filters by owner', () => {
+        const todoOwner = 'Fry';
+        const filteredTodos = todoService.filterTodos(testTodos, { owner: todoOwner });
+        // There should be two users with an 'i' in their
+        // name: Chris and Jamie.
+        expect(filteredTodos.length).toBe(2);
+        // Every returned user's name should contain an 'i'.
+        filteredTodos.forEach(todo => {
+          expect(todo.owner.indexOf(todoOwner)).toBeGreaterThanOrEqual(0);
+        });
+      });
+
+      it('filters by category', () => {
+        const todoCategory = 'homework';
+        const filteredTodos = todoService.filterTodos(testTodos, { category: todoCategory });
+        // There should be just one user that has UMM as their company.
+        expect(filteredTodos.length).toBe(1);
+        // Every returned user's company should contain 'UMM'.
+        filteredTodos.forEach(todo => {
+          expect(todo.category.indexOf(todoCategory)).toBeGreaterThanOrEqual(0);
   });
+});
+it('filters by body', () => {
+  const todoBody = 'quis';
+  const filteredTodos = todoService.filterTodos(testTodos, { body: todoBody });
+  // There should be just one user that has UMM as their company.
+  expect(filteredTodos.length).toBe(1);
+  // Every returned user's company should contain 'UMM'.
+  filteredTodos.forEach(todo => {
+    expect(todo.body.indexOf(todoBody)).toBeGreaterThanOrEqual(0);
+});
+});
+// it('filters by status', () => {
+//   const todoStatus = 'false';
+//   const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+//   // There should be just one user that has UMM as their company.
+//   expect(filteredTodos.length).toBe(1);
+//   // Every returned user's company should contain 'UMM'.
+//   filteredTodos.forEach(todo => {
+//     expect(todo.status.indexOf(todoStatus)).toBeGreaterThanOrEqual(0);
+// });
+// });
+});
+});
+

@@ -40,9 +40,6 @@ readonly todoUrl: string = environment.apiUrl + 'todos';
     });
   }
 
-  getTodoById(id: string): Observable<Todo> {
-    return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
-  }
 
   filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string}): Todo[] {
 
