@@ -11,24 +11,19 @@
 
           <mat-form-field class="input-field">
             <mat-label>Owner</mat-label>
-            <input
-              matInput
-              data-test="todoOwnerInput"
-              placeholder="Filter by owner"
-              [(ngModel)]="todoOwner"
-              (input)="updateFilter()"
-            />
+            <input matInput data-test="todoOwnerInput" placeholder="Filter by owner" [(ngModel)]="todoOwner"
+              (input)="updateFilter()" />
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Category</mat-label>
-            <input
-              matInput
-              data-test="todoCategoryInput"
-              placeholder="Filter by category"
-              [(ngModel)]="todoCategory"
-              (input)="updateFilter()"
-            />
+            <input matInput data-test="todoCategoryInput" placeholder="Filter by category" [(ngModel)]="todoCategory"
+              (input)="updateFilter()" />
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Limit Todos</mat-label>
+            <input matInput type="number" data-test="todoLimitInput" placeholder="Limit The number of todos" />
           </mat-form-field>
         </div>
 
@@ -36,13 +31,8 @@
 
           <mat-form-field class="input-field">
             <mat-label>Body</mat-label>
-            <input
-              matInput
-              data-test="todoBodyInput"
-              placeholder="Filter by body"
-              [(ngModel)]="todoBody"
-              (input)="updateFilter()"
-            />
+            <input matInput data-test="todoBodyInput" placeholder="Filter by body" [(ngModel)]="todoBody"
+              (input)="updateFilter()" />
           </mat-form-field>
 
           <mat-form-field class="input-field">
@@ -71,44 +61,44 @@
 
 <div class="flex-row">
   @if (serverFilteredTodos) {
-    <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
-      <!-- Switch between card and list view based on the viewType variable, set above in the mar-radio-group -->
-      <div>
-        @switch (viewType) {
-          <!-- Card grid view -->
-          @case ('card') {
-            <div class="todo-cards-container flex-row gap-10 flex-wrap">
-              @for (todo of filteredTodos; track todo._id) {
-                <app-todo-card [simple]="true" class="todo-card" [todo]="todo" fxFlex="1 1 280px"></app-todo-card>
-              }
-            </div>
-          }
-          <!-- List view -->
-          @case ('list') {
-            <mat-card appearance="outlined">
-              <mat-card-content>
-                <mat-nav-list class="todo-nav-list">
-                  <h3 mat-subheader>Todos</h3>
-                  @for (todo of this.filteredTodos; track todo._id) {
-                    <a mat-list-item [routerLink]="['/todos', todo._id]" class="todo-list-item">
-                      <span matListItemTitle mat-line class="todo-list-owner"> {{ todo.owner }} </span>
-                      <span matListItemLine class="todo-list-category"> {{ todo.category }} </span>
-                    </a>
-                  }
-                </mat-nav-list>
-              </mat-card-content>
-            </mat-card>
-          }
+  <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+    <!-- Switch between card and list view based on the viewType variable, set above in the mar-radio-group -->
+    <div>
+      @switch (viewType) {
+      <!-- Card grid view -->
+      @case ('card') {
+      <div class="todo-cards-container flex-row gap-10 flex-wrap">
+        @for (todo of filteredTodos; track todo._id) {
+        <app-todo-card [simple]="true" class="todo-card" [todo]="todo" fxFlex="1 1 280px"></app-todo-card>
         }
       </div>
+      }
+      <!-- List view -->
+      @case ('list') {
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-nav-list class="todo-nav-list">
+            <h3 mat-subheader>Todos</h3>
+            @for (todo of this.filteredTodos; track todo._id) {
+            <a mat-list-item [routerLink]="['/todos', todo._id]" class="todo-list-item">
+              <span matListItemTitle mat-line class="todo-list-owner"> {{ todo.owner }} </span>
+              <span matListItemLine class="todo-list-category"> {{ todo.category }} </span>
+            </a>
+            }
+          </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+      }
+      }
     </div>
+  </div>
   } @else {
-    <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="todo-error">
-      <mat-error>
-        There was a problem loading the todos. Possibly the server is down or perhaps there are network issues.
-      </mat-error>
-      <mat-error> Error message: {{ this.errMsg }} </mat-error>
-      <mat-error> Please wait a bit and try again or start the server. </mat-error>
-    </div>
+  <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="todo-error">
+    <mat-error>
+      There was a problem loading the todos. Possibly the server is down or perhaps there are network issues.
+    </mat-error>
+    <mat-error> Error message: {{ this.errMsg }} </mat-error>
+    <mat-error> Please wait a bit and try again or start the server. </mat-error>
+  </div>
   }
 </div>

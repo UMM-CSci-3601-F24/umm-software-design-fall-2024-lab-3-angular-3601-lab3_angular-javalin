@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Todo} from '../todo';
+import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 import { Subject, takeUntil } from 'rxjs';
 import { RouterLink } from '@angular/router';
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { HttpParams } from '@angular/common/http';
 
 
 @Component({
@@ -47,9 +48,9 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
     MatListItemTitle,
     MatListItemLine,
     MatError],
-    providers: [
-      TodoService,
-    ],
+  providers: [
+    TodoService,
+  ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss'
 })
@@ -66,7 +67,9 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   errMsg = '';
 
-  private ngUnsubscribe  = new Subject<void>;
+  private ngUnsubscribe = new Subject<void>;
+
+  public limit: number;
 
   /**
    *
@@ -76,7 +79,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   constructor(
     private todoService: TodoService,
     private snackBar: MatSnackBar,
-  ) {}
+  ) { }
 
 
   getTodosFromServer() {

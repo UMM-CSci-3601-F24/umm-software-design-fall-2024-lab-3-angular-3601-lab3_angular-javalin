@@ -2,15 +2,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Todo} from './todo';
+import { Todo } from './todo';
 
-@Injectable({providedIn: 'root',})
+@Injectable({ providedIn: 'root', })
 export class TodoService {
   readonly todoUrl: string = environment.apiUrl + 'todos';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  getTodos(filters?: { status?: boolean; owner?: string; body?: string; category?: string;
+  getTodos(filters?: {
+    status?: boolean; owner?: string; body?: string; category?: string;
   }): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
@@ -31,7 +32,7 @@ export class TodoService {
     return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
   }
 
-  filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string}): Todo[] {
+  filterTodos(todos: Todo[], filters: { owner?: string; category?: string; status?: boolean; body?: string }): Todo[] {
     let filteredTodos = todos;
 
     if (filters.owner !== undefined) {

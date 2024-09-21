@@ -28,7 +28,7 @@ export class TodoProfileComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private todoService: TodoService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // The `map`, `switchMap`, and `takeUntil` are all RXJS operators, and
@@ -62,7 +62,7 @@ export class TodoProfileComponent implements OnInit, OnDestroy {
         next: todo => (this.todo = todo),
         error: _err => {
           this.error = {
-            help: 'There was a problem loading the user – try again.',
+            help: 'There was a problem loading the todo – try again.',
             httpResponse: _err.message,
             message: _err.error?.title,
           };
