@@ -42,6 +42,18 @@
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
+          <mat-form-field class="input-field">
+            <mat-label>Limit</mat-label>
+            <input
+              matInput
+              data-test="todoLimitInput"
+              placeholder="Filter with Limit"
+              [(ngModel)]="todoLimit"
+              (input)="updateFilter()"
+            />
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
         </div>
 
         <div class="flex-row gap-10 flex-wrap">
@@ -68,8 +80,9 @@
 
 <div>
 <mat-accordion>
-
+<p>
   <div class="todo-panels-container flex-row gap-10 flex-wrap">
+    <p>
     @for (todo of filteredTodos; track todo._id) {
 
 
@@ -86,7 +99,9 @@
         <p> Owner: {{ todo.owner }} </p>
       </mat-expansion-panel>
     }
+    </p>
   </div>
+
 
 
 
