@@ -42,6 +42,18 @@
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
+          <mat-form-field class="input-field">
+            <mat-label>Limit</mat-label>
+            <input
+              matInput
+              data-test="todoLimitInput"
+              placeholder="Filter with Limit"
+              [(ngModel)]="todoLimit"
+              (input)="updateFilter()"
+            />
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
         </div>
 
         <div class="flex-row gap-10 flex-wrap">
@@ -49,16 +61,8 @@
 
 
 
-          <mat-form-field class="input-field">
-            <mat-label>Role</mat-label>
-            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoRole" data-test="todoRoleSelect">
-              <mat-option>--</mat-option>
-              <mat-option value="admin">Admin</mat-option>
-              <mat-option value="editor">Editor</mat-option>
-              <mat-option value="viewer">Viewer</mat-option>
-            </mat-select>
-            <mat-hint>Filtered on server</mat-hint>
-          </mat-form-field>
+
+
         </div>
         <div class="flex-row gap-10 flex-wrap">
           <mat-label for="status">Status: </mat-label>
@@ -76,8 +80,9 @@
 
 <div>
 <mat-accordion>
-
+<p>
   <div class="todo-panels-container flex-row gap-10 flex-wrap">
+    <p>
     @for (todo of filteredTodos; track todo._id) {
 
 
@@ -91,10 +96,16 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p> Body: {{ todo.body }} </p>
+
         <p> Owner: {{todo.owner}} </p>
+        <p> Status: {{ todo.status }} </p>
+        <p> Owner: {{ todo.owner }} </p>
+
       </mat-expansion-panel>
     }
+    </p>
   </div>
+
 
 
 

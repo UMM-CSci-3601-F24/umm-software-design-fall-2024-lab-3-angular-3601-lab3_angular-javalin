@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Todo, TodoRole } from './todo';
+import { Todo } from './todo';
 import { Subject, takeUntil } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import {
@@ -75,13 +75,13 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   public todoOwner: string;
   public todoStatus: boolean;
-  public todoRole: TodoRole;
   public todoCategory: string;
   public todoBody: string;
-
+  public todoLimit: number = 0;
 
   errMsg = '';
   private ngUnsubscribe = new Subject<void>();
+
 
 
   /**
@@ -109,7 +109,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.todoService
     .getTodos({
         // Filter the users by the role and owner specified in the GUI
-        role: this.todoRole,
         owner: this.todoOwner,
         category: this.todoCategory,
       })
@@ -147,7 +146,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
       status: this.todoStatus,
       category: this.todoCategory,
     });
+    if (this.todoLimit > 0) {
+      this.filteredTodos = this.todoService.limitTodos(this.filteredTodos, this.todoLimit);
   }
+
+}
 
   /**
    * Starts an asynchronous operation to update the users list
