@@ -107,11 +107,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
     // (which is an Observable<User[]>).
     // (For more on Observable, see: https://reactivex.io/documentation/observable.html)
     this.todoService
-    .getTodos({
-        // Filter the users by the role and owner specified in the GUI
-        owner: this.todoOwner,
-        category: this.todoCategory,
-      })
+    .getTodos()
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         // Next time we see a change in the Observable<User[]>,
