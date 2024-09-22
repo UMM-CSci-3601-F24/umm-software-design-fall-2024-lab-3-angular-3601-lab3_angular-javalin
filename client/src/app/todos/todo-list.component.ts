@@ -21,6 +21,7 @@ import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/for
 import { TodoService } from './todo.service';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
 /**
  * A component that displays a list of users, either as a grid
  * of cards or as a vertical list.
@@ -44,6 +45,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatExpansionModule,
     MatFormField,
     MatLabel,
+    MatIconModule,
     MatInput,
     FormsModule,
     MatHint,
