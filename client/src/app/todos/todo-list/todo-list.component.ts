@@ -21,7 +21,6 @@ import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
-import { HttpParams } from '@angular/common/http';
 
 
 @Component({
