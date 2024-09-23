@@ -104,7 +104,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   getTodosFromServer() {
     // A user-list-component is paying attention to userService.getUsers()
     // (which is an Observable<User[]>).
-    // (For more on Observable, see: https://reactivex.io/documentation/observable.html)
+    // (For more on Observable, see: https://reactivex) = .io/documentation/observable.html)
     this.todoService
     .getTodos()
       .pipe(takeUntil(this.ngUnsubscribe))
