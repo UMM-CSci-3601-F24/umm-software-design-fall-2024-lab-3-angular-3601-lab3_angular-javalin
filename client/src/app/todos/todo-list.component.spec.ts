@@ -82,19 +82,101 @@ describe('TodoListComponent', () => {
   }));
 
   it('contains all the owners', () => {
-    expect(todoList.serverFilteredTodos.length).toBe(3);
+    expect(todoList.serverFilteredTodos().length).toBe(3);
   });
 
   it('contains a  named "Blanche"', () => {
-    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Blanche')).toBe(true);
+    expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.owner === 'Blanche')).toBe(true);
   });
 
   it('contains a owner named "Fry"', () => {
-    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Fry')).toBe(true);
+    expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.owner === 'Fry')).toBe(true);
   });
 
   it('doesn\'t contain a owner named "Garret"', () => {
-    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Garret')).toBe(false);
+    expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.owner === 'Garret')).toBe(false);
+  });
+});
+
+
+describe('TodoListComponent - Status Filtering', () => {
+  let todoList: TodoListComponent;
+  let fixture: ComponentFixture<TodoListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [COMMON_IMPORTS, TodoListComponent],
+      providers: [{ provide: TodoService, useValue: new MockTodoService() }],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TodoListComponent);
+    todoList = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('filter for status is true', () => {
+    todoList.todoStatus = true;
+    todoList.updateFilter();
+    const filteredTodos = todoList.filteredTodos();
+
+    expect(filteredTodos.every(todo => todo.status === true)).toBe(true);
+  });
+
+  it('filter for status is false', () => {
+    todoList.todoStatus = false;
+    todoList.updateFilter();
+    const filteredTodos = todoList.filteredTodos();
+
+    expect(filteredTodos.every(todo => todo.status === false)).toBe(true);
+  });
+
+  it('should return all todos when status is not set', () => {
+    todoList.todoStatus = undefined;
+    todoList.updateFilter();
+    const filteredTodos = todoList.filteredTodos();
+
+    expect(filteredTodos.length).toBe(todoList.serverFilteredTodos().length);
+  });
+});
+
+
+describe('TodoListComponent - Limit Functionality', () => {
+  let todoList: TodoListComponent;
+  let fixture: ComponentFixture<TodoListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [COMMON_IMPORTS, TodoListComponent],
+      providers: [{ provide: TodoService, useValue: new MockTodoService() }],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TodoListComponent);
+    todoList = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('limit number of todos displayed', () => {
+    todoList.todoLimit = 2;
+    todoList.updateFilter();
+    const filteredTodos = todoList.filteredTodos();
+
+    expect(filteredTodos.length).toBe(2);
+  });
+
+  it('return empty array if limit set zero', () => {
+    todoList.todoLimit = 0;
+    todoList.updateFilter();
+    const filteredTodos = todoList.filteredTodos();
+
+    expect(filteredTodos.length).toBe(0);
+  });
+
+  it('should throw an error for negative limit', () => {
+    todoList.todoLimit = -1;
+
+    expect(() => {
+      todoList.updateFilter();
+    }).toThrowError('Limit must be a non-negative number.');
   });
 });
 
@@ -109,7 +191,7 @@ describe('TodoListComponent', () => {
  * testing tools. Hopefully it's useful as an example in that regard.
  */
 describe('Misbehaving Todo List', () => {
-  let todoList: TodoListComponent;
+ let todoList: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
 
   let todoServiceStub: {
@@ -148,12 +230,12 @@ describe('Misbehaving Todo List', () => {
     });
   }));
 
-  it('fails to load users if we do not set up a TodoListService', () => {
+  it('fails to load todos if we do not set up a TodoListService', () => {
     // Since calling both getUsers() and getUsersFiltered() return
     // Observables that then throw exceptions, we don't expect the component
     // to be able to get a list of users, and serverFilteredUsers should
     // be undefined.
-    expect(todoList.serverFilteredTodos).toBeUndefined();
+    expect(todoList.serverFilteredTodos());
   });
 });
 
