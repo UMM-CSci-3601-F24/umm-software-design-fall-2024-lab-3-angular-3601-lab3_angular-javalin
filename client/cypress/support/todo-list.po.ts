@@ -33,7 +33,7 @@ export class TodoListPage {
    *   the `app-user-card` DOM elements.
    */
   getTodoPanels() {
-    return cy.get('.mat-expansion-panel-content todo-panels-container');
+    return cy.get('.todo-panels-container .todo-expansion-panel');
   }
 
   /**

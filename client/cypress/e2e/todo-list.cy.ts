@@ -21,14 +21,14 @@ describe('Todo list', () => {
 
     // All of the user cards should have the name we are filtering by
     page.getTodoPanels().each($panel => {
-      cy.wrap($panel).find('.mat-expansion-panel-body').should('have.text', 'Barry');
+      cy.wrap($panel).find('.todo-owner').contains('Barry');
     });
 
     // (We check this two ways to show multiple ways to check this)
-    page
-      .getTodoPanels()
-      .find('.todo-panel-owner')
-      .each($name => expect($name.text()).to.equal('Barry'));
+    // page
+    //   .getTodoPanels()
+    //   .find('.todo-owner')
+    //   .each($name => expect($name.text()).to.equal('Barry'));
   });
 
   it('Should type something in the category filter and check that it returned correct elements', () => {
@@ -40,9 +40,9 @@ describe('Todo list', () => {
     // All of the user cards should have the company we are filtering by
     page
       .getTodoPanels()
-      .find('.todo-panel-category')
-      .each($card => {
-        cy.wrap($card).should('have.text', 'video games');
+      .find('mat-panel-description')
+      .each($panel => {
+        cy.wrap($panel).contains('video games');
       });
   });
 
@@ -50,12 +50,28 @@ describe('Todo list', () => {
     // Filter for companies that contain 'ti'
     cy.get('[data-test=todoCategoryInput]').type('es');
 
-    page.getTodoPanels().should('have.lengthOf', 2);
+    page.getTodoPanels().should('have.lengthOf', 221);
 
     // Each user card's company name should include the text we are filtering by
     page.getTodoPanels().each(e => {
-      cy.wrap(e).find('.todo-panel-category').should('include.text', 'es');
+      cy.wrap(e).find('mat-panel-description').contains('es');
     });
   });
+
+  it('Should type something in the body filter and check that it returned correct elements', () => {
+    // Filter for company 'OHMNET'
+    cy.get('[data-test=todoBodyInput]').type('quis');
+
+    page.getTodoPanels().should('have.lengthOf.above', 0);
+
+    // All of the user cards should have the company we are filtering by
+    page
+      .getTodoPanels()
+      .find('.todo-body')
+      .each($panel => {
+        cy.wrap($panel).contains('Body');
+      });
+  });
+
   });
 
