@@ -41,10 +41,21 @@
 
           <mat-form-field class="input-field">
             <mat-label>Status</mat-label>
-            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoStatus" data-test="userRoleSelect">
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoStatus" data-test="todoRoleSelect">
               <mat-option>-------------</mat-option>
               <mat-option value="complete">Complete</mat-option>
               <mat-option value="incomplete">Incomplete</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="sortBy" data-test="todoSortBy">
+              <mat-option>-------------</mat-option>
+              <mat-option value="status">Status</mat-option>
+              <mat-option value="body">Body</mat-option>
+              <mat-option value="category">Category</mat-option>
+              <mat-option value="owner">Owner</mat-option>
             </mat-select>
           </mat-form-field>
 
