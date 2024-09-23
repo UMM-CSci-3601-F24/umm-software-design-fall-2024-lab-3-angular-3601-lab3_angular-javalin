@@ -8,6 +8,7 @@
   user.service.ts lets us filter users
   We do it in the user.service.ts file because it needs to access information from multiple sources
   and so that all of our http information is in one place, at least for the users.
+  Service can be used by multiple sources rather than just one component
 #3
   a.
     In line 121

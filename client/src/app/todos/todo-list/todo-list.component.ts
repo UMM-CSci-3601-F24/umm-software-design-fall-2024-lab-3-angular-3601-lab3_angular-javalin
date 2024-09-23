@@ -59,11 +59,12 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   public todoStatus: boolean;
   public todoOwner: string;
-  public todo_id: string;
+  public todo_id: string; category
   public todoBody: string;
   public todoCategory: string;
   public viewType: 'card' | 'list' = 'card';
   public todoLimit: number;
+  public sortBy: string;
 
   errMsg = '';
 
@@ -87,6 +88,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
       .getTodos({
         category: this.todoCategory,
         status: this.todoStatus,
+        sortBy: this.sortBy,
       })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
