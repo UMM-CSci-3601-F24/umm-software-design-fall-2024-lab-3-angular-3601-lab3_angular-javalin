@@ -67,9 +67,9 @@
         <div class="flex-row gap-10 flex-wrap">
           <mat-label for="status">Status: </mat-label>
           <mat-radio-group aria-label="status" (change)="updateFilter()" [(ngModel)]="todoStatus" data-test="statusRadio">
-            <mat-radio-button [value]=undefined>Neither</mat-radio-button>
-            <mat-radio-button [value]="true">Complete</mat-radio-button>
-            <mat-radio-button [value]=!true>Incomplete</mat-radio-button>
+            <mat-radio-button id='statusNeither' [value]=undefined>Neither</mat-radio-button>
+            <mat-radio-button id='statusTrue' [value]="true">Complete</mat-radio-button>
+            <mat-radio-button id='statusFalse' [value]=!true>Incomplete</mat-radio-button>
           </mat-radio-group>
         </div>
         <br />

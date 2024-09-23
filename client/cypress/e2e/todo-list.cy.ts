@@ -46,6 +46,66 @@ describe('Todo list', () => {
       });
   });
 
+  it('Should type something in the limit filter and check that it returned correct elements', () => {
+    // Filter for company 'OHMNET'
+    cy.get('[data-test=todoLimitInput]').type('7');
+
+    page.getTodoPanels().should('have.lengthOf.above', 0);
+
+    // All of the user cards should have the company we are filtering by
+    page
+    .getTodoPanels().should('have.lengthOf', 7);
+  });
+
+
+  it('Should type something in the status neither filter and check that it returned correct elements', () => {
+    // Filter for company 'OHMNET'
+    cy.get('#statusNeither').click();
+
+    page.getTodoPanels().should('have.lengthOf.above', 0);
+
+    // All of the user cards should have the company we are filtering by
+    page
+    .getTodoPanels()
+    .find('mat-panel-title')
+    .each($panel => {
+      cy.wrap($panel).contains(/(in)?omplete/);
+    });
+
+  });
+
+  it('Should type something in the status true filter and check that it returned correct elements', () => {
+    // Filter for company 'OHMNET'
+    cy.get('#statusTrue').click();
+
+    page.getTodoPanels().should('have.lengthOf.above', 0);
+
+    // All of the user cards should have the company we are filtering by
+    page
+    .getTodoPanels()
+    .find('mat-panel-title')
+    .each($panel => {
+      cy.wrap($panel).contains('Complete');
+    });
+
+  });
+
+  it('Should type something in the status false filter and check that it returned correct elements', () => {
+    // Filter for company 'OHMNET'
+    cy.get('#statusFalse').click();
+
+    page.getTodoPanels().should('have.lengthOf.above', 0);
+
+    // All of the user cards should have the company we are filtering by
+    page
+    .getTodoPanels()
+    .find('mat-panel-title')
+    .each($panel => {
+      cy.wrap($panel).contains('Incomplete');
+    });
+
+  });
+
   it('Should type something partial in the category filter and check that it returned correct elements', () => {
     // Filter for companies that contain 'ti'
     cy.get('[data-test=todoCategoryInput]').type('es');
@@ -72,6 +132,4 @@ describe('Todo list', () => {
         cy.wrap($panel).contains('Body');
       });
   });
-
   });
-
