@@ -63,12 +63,13 @@ export class TodoListComponent implements OnInit, OnDestroy {
   public todoBody: string;
   public todoCategory: string;
   public viewType: 'card' | 'list' = 'card';
+  public todoLimit: number;
 
   errMsg = '';
 
   private ngUnsubscribe = new Subject<void>;
 
-  public limit: number;
+
 
   /**
    *
@@ -109,6 +110,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
       owner: this.todoOwner,
       category: this.todoCategory,
       body: this.todoBody,
+      limit: this.todoLimit,
     })
   }
 
